@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import dynamic from "next/dynamic";
+const TodoContextProvider = dynamic(() => import("@/app/context/dataContext"), {
+  ssr: false,
+});
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <body className={inter.className}>
+        <TodoContextProvider>{children}</TodoContextProvider>
+      </body>
     </html>
   );
 }
